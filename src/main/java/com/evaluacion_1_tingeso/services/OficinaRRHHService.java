@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class OficinaRRHHService {
@@ -17,6 +18,10 @@ public class OficinaRRHHService {
 
     @Autowired
     CuotaRepository cuotaRepository;
+
+    public List<CuotaEntity> obtenerCuotasEstudiante(Long id_estudiante){
+        return cuotaRepository.findByEstudiante_Id(id_estudiante);
+    }
 
     @Transactional
     public void pagarMatricula(Long id_estudiante){

@@ -7,6 +7,7 @@ import com.evaluacion_1_tingeso.repositories.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 @Service
@@ -17,6 +18,11 @@ public class EstudianteService {
 
     @Autowired
     CuotaRepository cuotaRepository;
+
+    public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante){
+        return estudianteRepository.findById(id_estudiante)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el estudiante con el ID: " + id_estudiante));
+    }
 
     @Transactional
     public EstudianteEntity guardarEstudiante(EstudianteEntity estudiante) {

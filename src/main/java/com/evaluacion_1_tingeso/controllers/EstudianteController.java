@@ -1,11 +1,15 @@
 package com.evaluacion_1_tingeso.controllers;
 
+import com.evaluacion_1_tingeso.entities.CuotaEntity;
 import com.evaluacion_1_tingeso.entities.EstudianteEntity;
 import com.evaluacion_1_tingeso.services.EstudianteService;
 import com.evaluacion_1_tingeso.services.OficinaRRHHService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -29,5 +33,15 @@ public class EstudianteController {
         return "redirect:/";
     }
 
+    @GetMapping("/cuotas/{id_estudiante}")
+    public String mostrarCuotas(@PathVariable Long id_estudiante, Model model){
+        EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorId(id_estudiante);
+        List<CuotaEntity> cuotas = oficinaRRHHService.obtenerCuotasEstudiante(id_estudiante);
+
+        model.addAttribute("estudiante", estudiante);
+        model.addAttribute("cuotas", cuotas);
+
+        return "listado-cuotas";
+    }
 
 }

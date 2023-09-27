@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Estudiante y Cuotas</title>
+</head>
+<body>
+<h1>Detalles del estudiante</h1>
+
+<h2>Información del Estudiante</h2>
+<p>Rut: <span th:text="${estudiante.rut}"></span></p>
+<p>Apellidos: <span th:text="${estudiante.apellidos}"></span></p>
+<p>Nombres: <span th:text="${estudiante.nombres}"></span></p>
+
+<h2>Cuotas</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID Cuota</th>
+        <th>Monto</th>
+        <th>Pagada</th>
+        <th>Fecha Vencimiento</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cuota : ${cuotas}">
+        <td th:text="${cuota.id}"></td>
+        <td th:text="${cuota.monto}"></td>
+        <td th:text="${cuota.pagada}"></td>
+        <td th:text="${cuota.fechaVencimiento}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
