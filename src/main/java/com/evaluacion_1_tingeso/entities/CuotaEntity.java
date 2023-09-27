@@ -23,7 +23,8 @@ public class CuotaEntity {
     @JoinColumn(name = "id_estudiante", nullable = false)
     private EstudianteEntity estudiante;
 
-    private Double monto;
+    private Integer monto;
     private Boolean estado;
+    private String tipo;
 
 }

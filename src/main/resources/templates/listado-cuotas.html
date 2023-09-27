@@ -12,22 +12,24 @@
 <p>Apellidos: <span th:text="${estudiante.apellidos}"></span></p>
 <p>Nombres: <span th:text="${estudiante.nombres}"></span></p>
 
+    <form th:action="@{/pagar-matricula/{id}(id=${estudiante.id})}" method="post">
+        <button type="submit">Pagar Matrícula</button>
+    </form>
+
 <h2>Cuotas</h2>
 <table border="1">
     <thead>
     <tr>
-        <th>ID Cuota</th>
+        <th>Tipo De Cuota</th>
         <th>Monto</th>
         <th>Pagada</th>
-        <th>Fecha Vencimiento</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="cuota : ${cuotas}">
-        <td th:text="${cuota.id}"></td>
+        <td th:text="${cuota.tipo}"></td>
         <td th:text="${cuota.monto}"></td>
-        <td th:text="${cuota.pagada}"></td>
-        <td th:text="${cuota.fechaVencimiento}"></td>
+        <td th:text="${cuota.estado}"></td>
     </tr>
     </tbody>
 </table>

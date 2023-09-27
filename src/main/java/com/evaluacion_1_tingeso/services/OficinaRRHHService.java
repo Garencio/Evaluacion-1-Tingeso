@@ -25,13 +25,15 @@ public class OficinaRRHHService {
 
     @Transactional
     public void pagarMatricula(Long id_estudiante){
-        CuotaEntity cuota = cuotaRepository.findByIdAndMonto(id_estudiante, 70000.0);
+        CuotaEntity cuota = cuotaRepository.findByIdAndMonto(id_estudiante, 70000);
         cuota.setEstado(Boolean.TRUE);
         cuotaRepository.save(cuota);
+
+        generarCuotas(id_estudiante);
     }
 
     @Transactional
-    public void generarCuotas(EstudianteEntity estudiante){
+    public void generarCuotas(Long id_estudiante){
 
     }
 

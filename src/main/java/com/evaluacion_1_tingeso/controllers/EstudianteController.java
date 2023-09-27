@@ -27,10 +27,17 @@ public class EstudianteController {
         return "redirect:/";
     }
 
+    @GetMapping("/estudiantes")
+    public String mostrarEstudiantes(Model model){
+        List<EstudianteEntity> estudianteEntities = estudianteService.obtenerTodosLosEstudiantes();
+        model.addAttribute("estudiantes", estudianteEntities);
+        return "listado-estudiantes";
+    }
+
     @PostMapping("/pagar-matricula/{id_estudiante}")
     public String pagarMatricula(@PathVariable Long id_estudiante){
         oficinaRRHHService.pagarMatricula(id_estudiante);
-        return "redirect:/";
+        return "redirect:/cuotas/" + id_estudiante;
     }
 
     @GetMapping("/cuotas/{id_estudiante}")

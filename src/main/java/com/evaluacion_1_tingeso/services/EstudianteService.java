@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Service
 public class EstudianteService {
@@ -18,6 +19,10 @@ public class EstudianteService {
 
     @Autowired
     CuotaRepository cuotaRepository;
+
+    public ArrayList<EstudianteEntity> obtenerTodosLosEstudiantes(){
+        return (ArrayList<EstudianteEntity>) estudianteRepository.findAll();
+    }
 
     public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante){
         return estudianteRepository.findById(id_estudiante)
@@ -31,8 +36,9 @@ public class EstudianteService {
 
         CuotaEntity cuotaMatricula = new CuotaEntity();
         cuotaMatricula.setEstudiante(estudiante1);
-        cuotaMatricula.setMonto(70000.0);
+        cuotaMatricula.setMonto(70000);
         cuotaMatricula.setEstado(false);
+        cuotaMatricula.setTipo("Matricula");
         cuotaRepository.save(cuotaMatricula);
 
         return estudiante1;
