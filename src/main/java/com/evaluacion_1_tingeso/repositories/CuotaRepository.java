@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CuotaRepository extends CrudRepository<CuotaEntity, Long> {
 
-    CuotaEntity findByIdAndMonto(Long id_estudiante, Integer monto);
+    CuotaEntity findByIdAndTipo(Long id_estudiante, String tipo);
 
     List<CuotaEntity> findByEstudiante_Id(Long id_estudiante);
 }

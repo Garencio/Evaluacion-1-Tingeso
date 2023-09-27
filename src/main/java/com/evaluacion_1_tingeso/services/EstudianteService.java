@@ -36,7 +36,7 @@ public class EstudianteService {
 
         CuotaEntity cuotaMatricula = new CuotaEntity();
         cuotaMatricula.setEstudiante(estudiante1);
-        cuotaMatricula.setMonto(70000);
+        cuotaMatricula.setMonto(70000.0);
         cuotaMatricula.setEstado(false);
         cuotaMatricula.setTipo("Matricula");
         cuotaRepository.save(cuotaMatricula);

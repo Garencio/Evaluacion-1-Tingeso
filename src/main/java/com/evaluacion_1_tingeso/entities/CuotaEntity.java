@@ -23,8 +23,9 @@ public class CuotaEntity {
     @JoinColumn(name = "id_estudiante", nullable = false)
     private EstudianteEntity estudiante;
 
-    private Integer monto;
+    private Double monto;
     private Boolean estado;
     private String tipo;
+    private Date vencimiento;
 
 }
