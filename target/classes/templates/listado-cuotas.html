@@ -30,6 +30,11 @@
         <td th:text="${cuota.tipo}"></td>
         <td th:text="${cuota.monto}"></td>
         <td th:text="${cuota.estado}"></td>
+        <td>
+            <form th:action="@{/pagar-cuota/{id}/{tipo}(id=${estudiante.id},tipo=${cuota.tipo})}" method="post">
+                <button type="submit">Pagar Cupta</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

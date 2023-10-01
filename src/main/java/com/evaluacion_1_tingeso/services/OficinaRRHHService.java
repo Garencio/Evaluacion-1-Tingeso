@@ -26,8 +26,15 @@ public class OficinaRRHHService {
 
     @Transactional
     public void pagarMatricula(Long id_estudiante){
-        CuotaEntity cuota = cuotaRepository.findByIdAndTipo(id_estudiante, "Matricula");
+        CuotaEntity cuota = cuotaRepository.findByIdAndTipoNativeQuery(id_estudiante, "Matricula");
 
+        if(cuota == null) {
+            System.out.println("No se encontró la cuota de matrícula para el estudiante con ID: " + id_estudiante);
+            return;
+        }
+        else{
+            System.out.println("Si se encontro");
+        }
         if(!cuota.getEstado()) {
             cuota.setEstado(Boolean.TRUE);
             cuotaRepository.save(cuota);
@@ -62,7 +69,7 @@ public class OficinaRRHHService {
         }
 
         int AñoActual = LocalDate.now().getYear();
-        int AñoEgreso = Integer.parseInt(estudiante.getAñoegresocolegio());
+        int AñoEgreso = AñoActual - Integer.parseInt(estudiante.getAñoegresocolegio());
 
         if(AñoEgreso < 1) {
             descuento += 0.15;
@@ -85,6 +92,14 @@ public class OficinaRRHHService {
                     cuotaRepository.save(cuota);
         }
 
+    }
+
+    @Transactional
+    public void pagarCuota(Long id_estudiante, String tipo){
+        CuotaEntity cuota = cuotaRepository.findByIdAndTipoNativeQuery(id_estudiante, tipo);
+
+        cuota.setEstado(Boolean.TRUE);
+        cuotaRepository.save(cuota);
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class EstudianteService {
@@ -25,8 +26,13 @@ public class EstudianteService {
     }
 
     public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante){
-        return estudianteRepository.findById(id_estudiante)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el estudiante con el ID: " + id_estudiante));
+        Optional<EstudianteEntity> optionalEstudiante = estudianteRepository.findById(id_estudiante);
+
+        if(optionalEstudiante.isPresent()){
+            return optionalEstudiante.get();
+        }
+
+        return null;
     }
 
     @Transactional

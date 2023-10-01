@@ -35,13 +35,13 @@ public class EstudianteController {
     }
 
     @PostMapping("/pagar-matricula/{id_estudiante}")
-    public String pagarMatricula(@PathVariable Long id_estudiante){
+    public String pagarMatricula(Long id_estudiante){
         oficinaRRHHService.pagarMatricula(id_estudiante);
         return "redirect:/cuotas/" + id_estudiante;
     }
 
     @GetMapping("/cuotas/{id_estudiante}")
-    public String mostrarCuotas(@PathVariable Long id_estudiante, Model model){
+    public String mostrarCuotas(Long id_estudiante, Model model){
         EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorId(id_estudiante);
         List<CuotaEntity> cuotas = oficinaRRHHService.obtenerCuotasEstudiante(id_estudiante);
 
@@ -51,4 +51,10 @@ public class EstudianteController {
         return "listado-cuotas";
     }
 
+    @PostMapping("pagar-cuota/{id_estudiante}/{tipo}")
+    public String pagarCuota(Long id_estudiante, String tipo){
+        oficinaRRHHService.pagarCuota(id_estudiante, tipo);
+
+        return "redirect:/cuotas/" + id_estudiante;
+    }
 }
