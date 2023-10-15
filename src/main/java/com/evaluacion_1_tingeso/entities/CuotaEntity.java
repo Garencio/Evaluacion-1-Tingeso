@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "cuota_pago")
@@ -24,8 +24,10 @@ public class CuotaEntity {
     private EstudianteEntity estudiante;
 
     private Double monto;
+    private Double montoBase;
     private Boolean estado;
     private String tipo;
-    private Date vencimiento;
+    private LocalDate vencimiento;
+    private LocalDate fechapago;
 
 }

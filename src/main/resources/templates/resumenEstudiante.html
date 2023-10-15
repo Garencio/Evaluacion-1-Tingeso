@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resumen Estudiante</title>
+</head>
+<body>
+<h1>Resumen del Estudiante</h1>
+<p><strong>RUT:</strong> <span th:text="${resumen.rut}"></span></p>
+<p><strong>Nombre:</strong> <span th:text="${resumen.nombre}"></span></p>
+<p><strong>Nro. exámenes rendidos:</strong> <span th:text="${resumen.numeroExamenesRendidos}"></span></p>
+<p><strong>Promedio Examenes:</strong> <span th:text="${resumen.promedioPuntajeExamenes}"></span></p>
+<p><strong>Monto total a pagar:</strong> <span th:text="${resumen.montoTotalAPagar}"></span></p>
+<p><strong>Tipo de Pago:</strong> <span th:text="${resumen.tipoPago}"></span></p>
+<p><strong>Nro. de cuotas:</strong> <span th:text="${resumen.numeroTotalCuotasPactadas}"></span></p>
+<p><strong>Nro. cuotas pagadas:</strong> <span th:text="${resumen.numeroCuotasPagadas}"></span></p>
+<p><strong>Monto total pagado:</strong> <span th:text="${resumen.montoTotalPagado}"></span></p>
+<p><strong>Fecha ultimo pago:</strong> <span th:text="${resumen.fechaUltimoPago}"></span></p>
+<p><strong>Saldo por pagar:</strong> <span th:text="${resumen.saldoPorPagar}"></span></p>
+<p><strong>Nro.Cuotas retrasadas:</strong> <span th:text="${resumen.numeroCuotasConRetraso}"></span></p>
+</body>
+</html>

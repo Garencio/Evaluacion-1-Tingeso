@@ -16,6 +16,19 @@
         <button type="submit">Pagar Matrícula</button>
     </form>
 
+
+    <form th:action="@{/pagar-cuota}" method="post">
+        <label for="cuotaLista">Seleccione la cuota a pagar:</label>
+        <select name="tipo" id="cuotaLista">
+            <option th:each="cuota : ${cuotas}"
+                    th:if="${!cuota.estado and cuota.tipo != 'Matricula'}"
+                    th:value="${cuota.tipo}"
+                    th:text="${cuota.tipo}"></option>
+        </select>
+        <input type="hidden" th:value="${estudiante.id}" name="id_estudiante"/>
+        <button type="submit">Pagar Cuota Seleccionada</button>
+    </form>
+
 <h2>Cuotas</h2>
 <table border="1">
     <thead>
@@ -23,6 +36,7 @@
         <th>Tipo De Cuota</th>
         <th>Monto</th>
         <th>Pagada</th>
+        <th>Vencimiento</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +44,7 @@
         <td th:text="${cuota.tipo}"></td>
         <td th:text="${cuota.monto}"></td>
         <td th:text="${cuota.estado}"></td>
+        <td th:text="${cuota.vencimiento}"></td>
     </tr>
     </tbody>
 </table>

@@ -3,17 +3,16 @@ package com.evaluacion_1_tingeso.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "estudiante")
+@Table(name = "examen")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstudianteEntity {
+public class ExamenEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +20,6 @@ public class EstudianteEntity {
     private Long id;
 
     private String rut;
-    private String apellidos;
-    private String nombres;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date nacimiento;
-
-    private String tipocolegio;
-    private String nombrecolegio;
-    private String añoegresocolegio;
-    private String tipodepago;
-
+    private String fecha_examen;
+    private String puntaje;
 }

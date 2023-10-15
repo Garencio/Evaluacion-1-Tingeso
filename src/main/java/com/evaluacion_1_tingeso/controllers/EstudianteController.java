@@ -2,6 +2,7 @@ package com.evaluacion_1_tingeso.controllers;
 
 import com.evaluacion_1_tingeso.entities.CuotaEntity;
 import com.evaluacion_1_tingeso.entities.EstudianteEntity;
+import com.evaluacion_1_tingeso.entities.ResumenEstudiante;
 import com.evaluacion_1_tingeso.services.EstudianteService;
 import com.evaluacion_1_tingeso.services.OficinaRRHHService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ public class EstudianteController {
     @Autowired
     EstudianteService estudianteService;
 
-    @Autowired
-    OficinaRRHHService oficinaRRHHService;
 
     @PostMapping("/guardar")
     public String guardarEstudiante(@ModelAttribute EstudianteEntity estudiante) {
@@ -34,27 +33,12 @@ public class EstudianteController {
         return "listado-estudiantes";
     }
 
-    @PostMapping("/pagar-matricula/{id_estudiante}")
-    public String pagarMatricula(Long id_estudiante){
-        oficinaRRHHService.pagarMatricula(id_estudiante);
-        return "redirect:/cuotas/" + id_estudiante;
+    @GetMapping("/resumen/{id_estudiante}")
+    public String obtenerResumenEstudiante(@PathVariable Long id_estudiante, Model model) {
+        ResumenEstudiante resumen = estudianteService.generarResumen(id_estudiante);
+        model.addAttribute("resumen", resumen);
+        return "resumenEstudiante";
     }
 
-    @GetMapping("/cuotas/{id_estudiante}")
-    public String mostrarCuotas(Long id_estudiante, Model model){
-        EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorId(id_estudiante);
-        List<CuotaEntity> cuotas = oficinaRRHHService.obtenerCuotasEstudiante(id_estudiante);
 
-        model.addAttribute("estudiante", estudiante);
-        model.addAttribute("cuotas", cuotas);
-
-        return "listado-cuotas";
-    }
-
-    @PostMapping("pagar-cuota/{id_estudiante}/{tipo}")
-    public String pagarCuota(Long id_estudiante, String tipo){
-        oficinaRRHHService.pagarCuota(id_estudiante, tipo);
-
-        return "redirect:/cuotas/" + id_estudiante;
-    }
 }
