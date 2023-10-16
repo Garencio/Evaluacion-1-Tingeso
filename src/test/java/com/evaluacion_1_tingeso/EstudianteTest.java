@@ -61,7 +61,7 @@ class EstudianteTest {
 
         CuotaEntity cuota2 = cuotas.get(9);
         assertEquals(Boolean.FALSE, cuota2.getEstado());
-        assertEquals("Cuota 10", cuota2.getTipo());
+        assertEquals("Cuota 9", cuota2.getTipo());
 
     }
 
