@@ -1,16 +1,5 @@
 version: "3.8"
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx-proxy
-    restart: always
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - tingeso-app
-
   postgres-db:
     image: postgres:latest
     restart: always
@@ -24,10 +13,11 @@ services:
       - 54320:5432
 
   tingeso-app:
-    build: ../../../Downloads
     container_name: tingeso_proyecto_docker
+    image: garencio/evaluacion-1-tingeso
+    build: .
     ports:
-      - "8080:8080"
+      - "8091:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/Tingeso
       - SPRING_DATASOURCE_USERNAME=postgres

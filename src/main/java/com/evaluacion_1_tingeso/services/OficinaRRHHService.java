@@ -25,8 +25,11 @@ public class OficinaRRHHService {
     @Autowired
     private ExamenService examenService;
 
-    public void guardarCuota(CuotaEntity cuota){
-        cuotaRepository.save(cuota);
+    public CuotaEntity guardarCuota(CuotaEntity cuota){
+
+        CuotaEntity cuota1 = cuotaRepository.save(cuota);
+
+        return cuota1;
     }
 
     public List<CuotaEntity> obtenerCuotasEstudiante(Long id_estudiante) {
