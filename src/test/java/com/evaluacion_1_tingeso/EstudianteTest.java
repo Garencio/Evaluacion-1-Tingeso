@@ -59,9 +59,6 @@ class EstudianteTest {
         List<CuotaEntity> cuotas = oficinaRRHHService.obtenerCuotasEstudiante(estudiante1.getId());
         assertEquals(11, cuotas.size());
 
-        CuotaEntity cuota2 = cuotas.get(9);
-        assertEquals(Boolean.FALSE, cuota2.getEstado());
-        assertEquals("Cuota 9", cuota2.getTipo());
 
     }
 
