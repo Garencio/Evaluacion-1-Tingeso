@@ -33,6 +33,10 @@ public class OficinaRRHHService {
         return cuotaRepository.findByEstudiante_Id(id_estudiante);
     }
 
+    public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante) {
+        return estudianteService.findEstudianteById(id_estudiante);
+    }
+
     @Transactional
     public void pagarMatricula(Long id_estudiante){
         CuotaEntity cuota = cuotaRepository.findByIdAndTipoNativeQuery(id_estudiante, "Matricula");
@@ -50,8 +54,6 @@ public class OficinaRRHHService {
 
             generarCuotas(id_estudiante);
 
-        } else {
-
         }
     }
 
@@ -59,13 +61,13 @@ public class OficinaRRHHService {
     public void generarCuotas(Long id_estudiante){
         EstudianteEntity estudiante = estudianteService.findEstudianteById(id_estudiante);
 
-        Double arancel = 1500000.0;
-        Double descuento = 0.0;
+        double arancel = 1500000.0;
+        double descuento = 0.0;
         int cuotas = 0;
 
         if(estudiante.getTipodepago().equals("Contado")){
             CuotaEntity cuota = new CuotaEntity();
-            cuota.setTipo(String.format("Unica Cuota"));
+            cuota.setTipo("Unica Cuota");
             cuota.setEstudiante(estudiante);
             cuota.setMonto(arancel/2);
             cuota.setMontoBase(arancel/2);
@@ -75,18 +77,16 @@ public class OficinaRRHHService {
             cuotaRepository.save(cuota);
         }
         else{
-            switch (estudiante.getTipocolegio()){
-                case "Municipal":
+            switch (estudiante.getTipocolegio()) {
+                case "Municipal" -> {
                     descuento += 0.20;
                     cuotas = 10;
-                    break;
-                case "Subvencionado":
+                }
+                case "Subvencionado" -> {
                     descuento += 0.10;
                     cuotas = 7;
-                    break;
-                case "Privado":
-                    cuotas = 4;
-                    break;
+                }
+                case "Particular" -> cuotas = 4;
             }
 
             int AñoActual = LocalDate.now().getYear();
@@ -94,14 +94,14 @@ public class OficinaRRHHService {
 
             if(AñoEgreso < 1) {
                 descuento += 0.15;
-            } else if(AñoEgreso >= 1 && AñoEgreso <= 2) {
+            } else if(AñoEgreso <= 2) {
                 descuento += 0.08;
-            } else if(AñoEgreso >= 3 && AñoEgreso <= 4) {
+            } else if(AñoEgreso <= 4) {
                 descuento += 0.04;
             }
 
-            Double arancelFinal = arancel * (1 - descuento);
-            Double valorCuota = arancelFinal / cuotas;
+            double arancelFinal = arancel * (1 - descuento);
+            double valorCuota = arancelFinal / cuotas;
             LocalDate fechaActual = LocalDate.now();
 
             for(int i = 0; i < cuotas; i++) {
@@ -206,10 +206,6 @@ public class OficinaRRHHService {
         return cuotas;
     }
 
-    public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante) {
-        return estudianteService.obtenerEstudiantePorId(id_estudiante);
-    }
-
     public Double MontoTotal(Long id_estudiante){
         List<CuotaEntity> cuotas = obtenerCuotasEstudiante(id_estudiante);
         EstudianteEntity estudiante = estudianteService.findEstudianteById(id_estudiante);
@@ -261,7 +257,11 @@ public class OficinaRRHHService {
     public Long numeroCuotasConRetraso(Long id_estudiante) {
         LocalDate today = LocalDate.now();
         List<CuotaEntity> cuotas = obtenerCuotasEstudiante(id_estudiante);
-        return cuotas.stream().filter(cuota -> !cuota.getEstado() && cuota.getVencimiento().isBefore(today)).count();
+        return cuotas.stream()
+                .filter(cuota -> !cuota.getEstado() && !cuota.getTipo().equals("Matricula")
+                        && cuota.getVencimiento().isBefore(today))
+                .count();
     }
+
 
 }

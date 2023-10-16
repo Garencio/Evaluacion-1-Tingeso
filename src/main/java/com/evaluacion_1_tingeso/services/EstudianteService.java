@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstudianteService {
@@ -27,13 +26,6 @@ public class EstudianteService {
 
     public ArrayList<EstudianteEntity> obtenerTodosLosEstudiantes(){
         return (ArrayList<EstudianteEntity>) estudianteRepository.findAll();
-    }
-
-    public EstudianteEntity obtenerEstudiantePorId(Long id_estudiante){
-        Optional<EstudianteEntity> optionalEstudiante = estudianteRepository.findById(id_estudiante);
-
-        return optionalEstudiante.orElse(null);
-
     }
 
     @Transactional

@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - tingeso-app
+
+  postgres-db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1503
+      POSTGRES_DB: Tingeso
+    ports:
+      - 54320:5432
+
+  tingeso-app:
+    build: ../../../Downloads
+    container_name: tingeso_proyecto_docker
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/Tingeso
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1503
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres-db
