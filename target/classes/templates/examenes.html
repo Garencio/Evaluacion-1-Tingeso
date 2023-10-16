@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listado de exámenes</title>
+</head>
+<body>
+
+<div>
+    <h2>Listado de exámenes</h2>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Rut</th>
+            <th>Fecha examen</th>
+            <th>Puntaje</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="examen : ${examenes}">
+            <td th:text="${examen.id}"></td>
+            <td th:text="${examen.rut}"></td>
+            <td th:text="${examen.fecha_examen}"></td>
+            <td th:text="${examen.puntaje}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
