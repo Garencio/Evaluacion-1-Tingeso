@@ -100,8 +100,8 @@ class OficinaRRHHTest {
 		assertEquals("Unica Cuota", cuotaContado.getTipo());
 		assertNull(cuotaContado.getFechapago());
 
-		CuotaEntity cuota1 = cuotas.get(0);
-		assertEquals("Cuota 1", cuota1.getTipo());
+		CuotaEntity cuota1 = cuotas.get(1);
+		assertEquals("Cuota 2", cuota1.getTipo());
 		assertNull(cuota1.getFechapago());
 
 	}
