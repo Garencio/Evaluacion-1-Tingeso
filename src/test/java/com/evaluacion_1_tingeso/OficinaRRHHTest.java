@@ -71,6 +71,15 @@ class OficinaRRHHTest {
 		estudianteService.guardarEstudiante(estudiante);
 		estudianteService.guardarEstudiante(estudianteContado);
 	}
+
+	@Test
+	@Transactional
+	void obtenerEstudiantePorId(){
+		oficinaRRHHService.obtenerEstudiantePorId(estudiante.getId());
+
+		assertEquals("20,984,912-7", estudiante.getRut());
+	}
+
 	@Test
 	void pagarMatricula(){
 

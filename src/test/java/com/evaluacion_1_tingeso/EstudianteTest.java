@@ -35,6 +35,40 @@ class EstudianteTest {
 
     @Test
     @Transactional
+    void obtenerTodosLosEstudiantes() throws ParseException {
+        SimpleDateFormat nac = new SimpleDateFormat("yyyy-MM-dd");
+        Date nacimiento = nac.parse("2002-03-15");
+        EstudianteEntity estudiante = new EstudianteEntity();
+        estudiante.setRut("20,984,912-7");
+        estudiante.setNombres("Benjamin Isaac");
+        estudiante.setApellidos("Pavez Lopez");
+        estudiante.setNacimiento(nacimiento);
+        estudiante.setTipocolegio("Municipal");
+        estudiante.setNombrecolegio("Alessandri");
+        estudiante.setAñoegresocolegio("2017");
+        estudiante.setTipodepago("Cuotas");
+
+        EstudianteEntity estudiante1 = new EstudianteEntity();
+        estudiante1.setRut("20,984,912-5");
+        estudiante1.setNombres("Benjamin Isaac");
+        estudiante1.setApellidos("Pavez Lopez");
+        estudiante1.setNacimiento(nacimiento);
+        estudiante1.setTipocolegio("Municipal");
+        estudiante1.setNombrecolegio("Alessandri");
+        estudiante1.setAñoegresocolegio("2017");
+        estudiante1.setTipodepago("Cuotas");
+
+        estudianteService.guardarEstudiante(estudiante);
+        estudianteService.guardarEstudiante(estudiante1);
+
+        List<EstudianteEntity> estudiantes = estudianteService.obtenerTodosLosEstudiantes();
+
+        assertEquals(2, estudiantes.size());
+    }
+
+
+    @Test
+    @Transactional
     void guardarEstudiante() throws ParseException {
         SimpleDateFormat nac = new SimpleDateFormat("yyyy-MM-dd");
         Date nacimiento = nac.parse("2002-03-15");

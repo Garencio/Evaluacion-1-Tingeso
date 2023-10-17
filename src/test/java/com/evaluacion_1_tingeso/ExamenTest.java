@@ -29,10 +29,7 @@ class ExamenTest {
         String fecha = "2023-10-27";
         String puntaje = "785";
 
-        examen.setPuntaje(puntaje);
-        examen.setFecha_examen(fecha);
-        examen.setRut(rut);
-        examenRepository.save(examen);
+        examenService.guardarExamenBD(rut,fecha,puntaje);
 
         ExamenEntity examenEntity = examenRepository.findByRut(rut).get(0);
         assertEquals(rut, examenEntity.getRut());
