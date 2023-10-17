@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.evaluacion_1_tingeso.OficinaRRHHTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.681 s - in com.evaluacion_1_tingeso.OficinaRRHHTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.408 s - in com.evaluacion_1_tingeso.OficinaRRHHTest

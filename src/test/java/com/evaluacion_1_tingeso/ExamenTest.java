@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
+@Transactional
 class ExamenTest {
 
     @Autowired
@@ -25,7 +26,7 @@ class ExamenTest {
     @Transactional
     void guardarExamenBD() {
         ExamenEntity examen = new ExamenEntity();
-        String rut = "20,984,912-7";
+        String rut = "20.984.912-7";
         String fecha = "2023-10-27";
         String puntaje = "785";
 
@@ -42,7 +43,7 @@ class ExamenTest {
     void calcularPuntajePromedio() {
         ExamenEntity examen = new ExamenEntity();
         ExamenEntity examen1 = new ExamenEntity();
-        String rut = "20,984,912-7";
+        String rut = "20.984.912-7";
         String fecha = "2023-10-27";
         String fecha1 = "2023-11-27";
         String puntaje = "785";

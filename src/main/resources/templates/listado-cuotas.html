@@ -3,21 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle de Estudiante y Cuotas</title>
+    <style>
+        .titulo-formulario {
+            text-align: center;
+            font-size: 2em;
+            padding: 20px 0;
+            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #555;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin: 0 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #777;
+        }
+
+        .btnResumen {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btnResumen:hover {
+            background-color: #555;
+        }
+
+        h1, h2, p, table, form {
+            background-color: #fff;
+            border-radius: 5px;
+            max-width: 800px;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td, th {
+            padding: 10px;
+            text-align: center;
+        }
+
+        label, select, button {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+    </style>
 </head>
 <body>
-<h1>Detalles del estudiante</h1>
+<header>
+    <nav>
+        <a href="/">Formulario Estudiante</a> |
+        <a href="/estudiantes">Estudiantes</a>
+        <a href="/upload">Subir Examenes</a>
+        <a href="/examenes">Examenes</a>
+    </nav>
+</header>
+<h1 class="titulo-formulario">Detalles del estudiante</h1>
 
 <h2>Información del Estudiante</h2>
 <p>Rut: <span th:text="${estudiante.rut}"></span></p>
 <p>Apellidos: <span th:text="${estudiante.apellidos}"></span></p>
 <p>Nombres: <span th:text="${estudiante.nombres}"></span></p>
 
-    <form th:action="@{/pagar-matricula/{id}(id=${estudiante.id})}" method="post">
+<div style="text-align: center; margin-top: 20px;">
+    <a th:href="@{/resumen/{id}(id=${estudiante.id})}" class="btnResumen">
+        Ver Resumen
+    </a>
+</div>
+
+<h2>Cuotas</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Tipo De Cuota</th>
+        <th>Monto</th>
+        <th>Pagada</th>
+        <th>Vencimiento</th>
+        <th>Fecha de Pago</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cuota : ${cuotas}">
+        <td th:text="${cuota.tipo}"></td>
+        <td th:text="${cuota.monto}"></td>
+        <td th:text="${cuota.estado}"></td>
+        <td th:text="${cuota.vencimiento}"></td>
+        <td th:text="${cuota.fechapago}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div style="margin-top: 20px; text-align: center;">
+    <form th:action="@{/pagar-matricula/{id}(id=${estudiante.id})}" method="post" style="display: inline-block; margin-right: 20px;">
         <button type="submit">Pagar Matrícula</button>
     </form>
 
-
-    <form th:action="@{/pagar-cuota}" method="post">
+    <form th:action="@{/pagar-cuota}" method="post" style="display: inline-block;">
         <label for="cuotaLista">Seleccione la cuota a pagar:</label>
         <select name="tipo" id="cuotaLista">
             <option th:each="cuota : ${cuotas}"
@@ -28,25 +152,6 @@
         <input type="hidden" th:value="${estudiante.id}" name="id_estudiante"/>
         <button type="submit">Pagar Cuota Seleccionada</button>
     </form>
-
-<h2>Cuotas</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Tipo De Cuota</th>
-        <th>Monto</th>
-        <th>Pagada</th>
-        <th>Vencimiento</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="cuota : ${cuotas}">
-        <td th:text="${cuota.tipo}"></td>
-        <td th:text="${cuota.monto}"></td>
-        <td th:text="${cuota.estado}"></td>
-        <td th:text="${cuota.vencimiento}"></td>
-    </tr>
-    </tbody>
-</table>
+</div>
 </body>
 </html>

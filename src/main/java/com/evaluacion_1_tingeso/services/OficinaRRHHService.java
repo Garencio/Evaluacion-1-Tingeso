@@ -66,7 +66,7 @@ public class OficinaRRHHService {
 
         double arancel = 1500000.0;
         double descuento = 0.0;
-        int cuotas = 0;
+        int cuotas = estudiante.getCantidad_cuotas();
 
         if(estudiante.getTipodepago().equals("Contado")){
             CuotaEntity cuota = new CuotaEntity();
@@ -83,13 +83,10 @@ public class OficinaRRHHService {
             switch (estudiante.getTipocolegio()) {
                 case "Municipal" -> {
                     descuento += 0.20;
-                    cuotas = 10;
                 }
                 case "Subvencionado" -> {
                     descuento += 0.10;
-                    cuotas = 7;
                 }
-                case "Particular" -> cuotas = 4;
             }
 
             int AñoActual = LocalDate.now().getYear();
@@ -161,18 +158,13 @@ public class OficinaRRHHService {
         CuotaEntity cuota = cuotaRepository.findByIdAndTipoNativeQuery(id_estudiante, tipo);
 
         if (cuota != null && !cuota.getEstado()) {
-            if(cuota.getTipo().equals("Unica Cuota")){
-                cuota.setEstado(Boolean.TRUE);
-                cuota.setFechapago(LocalDate.now());
-                cuotaRepository.save(cuota);
-            }
-            else{
+            if (!cuota.getTipo().equals("Unica Cuota")) {
                 Double montoConInteres = calcularInteres(cuota);
                 cuota.setMonto(montoConInteres);
-                cuota.setEstado(Boolean.TRUE);
-                cuota.setFechapago(LocalDate.now());
-                cuotaRepository.save(cuota);
             }
+            cuota.setEstado(Boolean.TRUE);
+            cuota.setFechapago(LocalDate.now());
+            cuotaRepository.save(cuota);
         }
     }
 

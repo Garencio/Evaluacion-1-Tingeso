@@ -3,9 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina Principal</title>
+    <style>
+    .titulo-formulario {
+        text-align: center;
+        font-size: 2em;
+        padding: 20px 0;
+        border-bottom: 2px solid #333;
+        margin-bottom: 20px;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #333;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    header nav a {
+        color: #fff;
+        text-decoration: none;
+        background-color: #555;
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        margin: 0 5px;
+        display: inline-block;
+        transition: background-color 0.3s;
+    }
+
+    header nav a:hover {
+        background-color: #777;
+    }
+
+    form {
+        background-color: #fff;
+        border-radius: 5px;
+        max-width: 500px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label, input, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #333;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #555;
+    }
+
+    </style>
 </head>
 <body>
-    <h1>Formulario estudiante</h1>
+    <header>
+        <nav>
+            <a href="/">Formulario Estudiante</a> |
+            <a href="/estudiantes">Estudiantes</a>
+            <a href="/upload">Subir Examenes</a>
+            <a href="/examenes">Examenes</a>
+
+        </nav>
+    </header>
+
+    <div class="titulo-formulario">
+        Formulario estudiante
+    </div>
+
     <form action="/guardar" method="post">
         <label for="rut">Rut:</label>
         <input type="text" id="rut" name="rut" required><br>
@@ -38,7 +118,58 @@
             <option value="Cuotas">Cuotas</option>
         </select><br>
 
+        <label for="cantidad_cuotas">Cantidad de Cuotas:</label>
+        <select id="cantidad_cuotas" name="cantidad_cuotas"></select>
+
         <input type="submit" value="guardar">
     </form>
+
+    <script>
+        const tipoColegio = document.getElementById('tipocolegio');
+        const cantidadCuotas = document.getElementById('cantidad_cuotas');
+
+        tipoColegio.addEventListener('change', function() {
+            const selectedValue = this.value;
+
+            cantidadCuotas.innerHTML = '';
+
+            let maxCuotas;
+
+            switch(selectedValue) {
+                case 'Municipal':
+                    maxCuotas = 10;
+                    break;
+                case 'Subvencionado':
+                    maxCuotas = 7;
+                    break;
+                case 'Privado':
+                    maxCuotas = 4;
+                    break;
+            }
+
+            if (document.getElementById('tipodepago').value === 'Contado') {
+                cantidadCuotas.style.display = 'none';
+            } else {
+                cantidadCuotas.style.display = 'block';
+            }
+
+            for(let i = 1; i <= maxCuotas; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.text = i;
+                cantidadCuotas.add(option);
+            }
+        });
+
+        document.getElementById('tipodepago').addEventListener('change', function() {
+            if (this.value === 'Contado') {
+                cantidadCuotas.style.display = 'none';
+            } else {
+                cantidadCuotas.style.display = 'block';
+                tipoColegio.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+
 </body>
 </html>

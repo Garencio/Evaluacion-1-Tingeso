@@ -31,5 +31,6 @@ public class EstudianteEntity {
     private String nombrecolegio;
     private String añoegresocolegio;
     private String tipodepago;
+    private int cantidad_cuotas;
 
 }

@@ -1,12 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Listado de exámenes</title>
+    <style>
+        .titulo-formulario {
+            text-align: center;
+            font-size: 2em;
+            padding: 20px 0;
+            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #555;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin: 0 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #777;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
+<header>
+    <nav>
+        <a href="/">Formulario Estudiante</a> |
+        <a href="/estudiantes">Estudiantes</a>
+        <a href="/upload">Subir Examenes</a>
+        <a href="/examenes">Examenes</a>
+    </nav>
+</header>
 
 <div>
-    <h2>Listado de exámenes</h2>
+    <h2 class="titulo-formulario">Listado de exámenes</h2>
 
     <table border="1">
         <thead>
@@ -15,7 +74,6 @@
             <th>Rut</th>
             <th>Fecha examen</th>
             <th>Puntaje</th>
-
         </tr>
         </thead>
         <tbody>
@@ -27,8 +85,6 @@
         </tr>
         </tbody>
     </table>
-
 </div>
-
 </body>
 </html>
